@@ -9,7 +9,6 @@ import {
     App, Scratch, LiveAltTab, Topbar
 } from './imports.js';
 
-const Seat = Clutter.get_default_backend().get_default_seat();
 const display = global.display;
 
 const KEYBINDINGS_KEY = 'org.gnome.shell.extensions.paperwm.keybindings';
@@ -501,10 +500,24 @@ export function unbindkey(actionIdOrKeystr) {
 }
 
 export function devirtualizeMask(gdkVirtualMask) {
-    const keymap = Seat.get_keymap();
-    let [success, rawMask] = keymap.map_virtual_modifiers(gdkVirtualMask);
-    if (!success)
-        throw new Error(`Couldn't devirtualize mask ${gdkVirtualMask}`);
+    const seat = Utils.getSeat();
+    const keymap = seat?.get_keymap();
+    if (keymap && typeof keymap.map_virtual_modifiers === 'function') {
+        let [success, rawMask] = keymap.map_virtual_modifiers(gdkVirtualMask);
+        if (success)
+            return rawMask;
+    }
+    // Fallback: translate common virtual modifiers if map_virtual_modifiers is unavailable
+    let rawMask = gdkVirtualMask & 0xff; // Standard X11/Clutter modifier masks (Shift, Lock, Control, Mod1-Mod5)
+    if (gdkVirtualMask & (1 << 26)) { // GDK_SUPER_MASK
+        rawMask |= (Clutter.ModifierType.SUPER_MASK ?? (1 << 26));
+    }
+    if (gdkVirtualMask & (1 << 27)) { // GDK_HYPER_MASK
+        rawMask |= (Clutter.ModifierType.HYPER_MASK ?? (1 << 27));
+    }
+    if (gdkVirtualMask & (1 << 28)) { // GDK_META_MASK
+        rawMask |= (Clutter.ModifierType.META_MASK ?? (1 << 28));
+    }
     return rawMask;
 }
 

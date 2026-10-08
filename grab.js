@@ -44,9 +44,8 @@ export function disable() {
 let virtualPointer;
 export function getVirtualPointer() {
     if (!virtualPointer) {
-        virtualPointer = Clutter.get_default_backend()
-            .get_default_seat()
-            .create_virtual_device(Clutter.InputDeviceType.POINTER_DEVICE);
+        virtualPointer = Utils.getSeat()
+            ?.create_virtual_device(Clutter.InputDeviceType.POINTER_DEVICE);
     }
 
     return virtualPointer;

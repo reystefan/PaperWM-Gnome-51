@@ -280,12 +280,23 @@ export function warpPointerToMonitor(monitor, params = { center: false, ripple: 
 }
 
 /**
+ * Returns the default seat, compatible with Clutter in GNOME Shell 45-51+.
+ * @returns {Clutter.Seat}
+ */
+export function getSeat() {
+    if (typeof Clutter.get_default_backend === 'function') {
+        return Clutter.get_default_backend().get_default_seat();
+    }
+    return global.stage?.context?.get_backend()?.get_default_seat();
+}
+
+/**
  * Warps pointer to x, y coordinates.
  * Optionally shows a ripple effect after warp.
  */
 export function warpPointer(x, y, ripple = true) {
-    const seat = Clutter.get_default_backend().get_default_seat();
-    seat.warp_pointer(x, y);
+    const seat = getSeat();
+    seat?.warp_pointer(x, y);
     if (ripple) {
         warpRipple.playAnimation(x, y);
     }

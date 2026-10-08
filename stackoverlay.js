@@ -5,7 +5,39 @@ import Shell from 'gi://Shell';
 import St from 'gi://St';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as PointerWatcher from 'resource:///org/gnome/shell/ui/pointerWatcher.js';
+
+let PointerWatcher;
+try {
+    PointerWatcher = await import('resource:///org/gnome/shell/ui/pointerWatcher.js');
+} catch {
+    class PointerWatch {
+        constructor(interval, callback) {
+            this._callback = callback;
+            this._timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, interval, () => {
+                const [x, y] = global.get_pointer();
+                this._callback(x, y);
+                return GLib.SOURCE_CONTINUE;
+            });
+        }
+
+        remove() {
+            if (this._timeoutId) {
+                GLib.source_remove(this._timeoutId);
+                this._timeoutId = 0;
+            }
+        }
+    }
+
+    PointerWatcher = {
+        getPointerWatcher() {
+            return {
+                addWatch(interval, callback) {
+                    return new PointerWatch(interval, callback);
+                },
+            };
+        },
+    };
+}
 
 import { Settings, Utils, Tiling, Grab, Scratch } from './imports.js';
 

@@ -1678,12 +1678,31 @@ border-radius: ${borderWidth}px;
         this.metaBackground?.destroy();
         this.metaBackground = null;
 
+        let style = GDesktopEnums.BackgroundStyle.ZOOM;
+        if (useDefault && !this.settings.get_string('background')) {
+            try {
+                style = backgroundSettings.get_enum('picture-options');
+            } catch {
+                style = GDesktopEnums.BackgroundStyle.ZOOM;
+            }
+        }
+
+        let file = null;
+        if (path && style !== GDesktopEnums.BackgroundStyle.NONE) {
+            try {
+                file = Gio.File.new_for_commandline_arg(path);
+            } catch (e) {
+                console.error(e, 'Failed to create Gio.File for background path:', path);
+                file = null;
+            }
+        }
+
         this.metaBackground = new Background.Background({
             monitorIndex: this.monitor.index,
             layoutManager: Main.layoutManager,
             settings: backgroundSettings,
-            file: Gio.File.new_for_commandline_arg(path),
-            style: GDesktopEnums.BackgroundStyle.ZOOM,
+            file,
+            style,
         });
 
         this.background.content.set({
