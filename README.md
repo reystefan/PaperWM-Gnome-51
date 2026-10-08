@@ -9,7 +9,7 @@ PaperWM is a [GNOME Shell](https://www.gnome.org/) extension which provides scro
 
 While technically an [extension](https://extensions.gnome.org/about/) it's to a large extent built on top of the Gnome desktop rather than merely extending it.
 
-PaperWM aims to continually support [current stable](https://release.gnome.org/calendar/#branches) GNOME Shell versions. Older versions of PaperWM can generally be installed on older GNOME Shell versions (see [Install via Source](#install-via-source) for more information on targeting an older/EOL Gnome version).
+PaperWM aims to continually support [current stable](https://release.gnome.org/calendar/#branches) GNOME Shell versions. Older versions of PaperWM can generally be installed on older GNOME Shell versions (see [Install from Source](#install-from-source) for more information on targeting an older/EOL Gnome version).
 
 New features and fixes aren't generally backported to older Gnome shell versions. [Pull requests](https://github.com/paperwm/PaperWM/pulls) for fixes to older PaperWM versions (that run on previous Gnome versions) will be accepted if the submitter can help test and update related documentation.
 
@@ -17,40 +17,63 @@ Have questions or comments? Please ask on the upstream [Github Discussions](http
 
 ## Installation
 
-### Install via [extensions.gnome.org](https://extensions.gnome.org/extension/6099/paperwm/) (recommended)
+> [!NOTE]
+> As this is a temporary fork providing support for **GNOME Shell 51**, it is **not published on [GNOME Extensions (extensions.gnome.org)](https://extensions.gnome.org/)**. Therefore, it must be installed directly from source.
 
-[<img alt="Install it on extensions.gnome.org" src="media/get-it-on-ego.svg" width="150px">](https://extensions.gnome.org/extension/6099/paperwm/)
+### Install from Source
 
-### Install via Source
+#### 1. Prerequisites
 
-Clone the repo and check out the branch for the GNOME Shell version you're running:
+Make sure you have `git`, `make`, and `glib-compile-schemas` (typically provided by `glib2` or `libglib2.0-bin` on most Linux distributions) installed on your system.
 
-- 45-50 (currently developed/supported): https://github.com/paperwm/PaperWM/tree/release
-- 42-44 ([EOL](https://release.gnome.org/calendar/#releases)): https://github.com/paperwm/PaperWM/tree/gnome-44
-- 40-41 ([EOL](https://release.gnome.org/calendar/#releases)): https://github.com/paperwm/PaperWM/tree/gnome-40
-- 3.28-3.38 ([EOL](https://release.gnome.org/calendar/#releases)): https://github.com/paperwm/PaperWM/tree/gnome-3.38
+#### 2. Clone the Repository
 
-then run the [`make install`](https://github.com/paperwm/PaperWM/blob/release/install.sh) 
-from the repository. The installer will create a link to the repo in
-`~/.local/share/gnome-shell/extensions`. It will then ask if you want to enable PaperWM.
+Clone this repository to your local machine:
+
 ```bash
-make install # install, load and enable paperwm
+git clone https://github.com/reystefan/PaperWM-Gnome-51.git
+cd PaperWM-Gnome-51
 ```
+
+*(Note: If you are looking for branches targeting older EOL GNOME Shell versions, please check the upstream [PaperWM repository](https://github.com/paperwm/PaperWM)).*
+
+#### 3. Run the Installer
+
+Run `make install` from the repository root:
+
+```bash
+make install
+```
+
+This will compile the GSettings schemas and create a symlink to this repository in `~/.local/share/gnome-shell/extensions/paperwm@paperwm.github.com`.
+
+> [!IMPORTANT]
+> If a previous non-symlinked installation or an outdated symlink of PaperWM already exists at `~/.local/share/gnome-shell/extensions/paperwm@paperwm.github.com`, please remove it first before running `make install`.
 
 Running the extension will automatically install a user config file as described in [User configuration & development](#user-configuration--development).
 
-> #### ➡️ You'll need to restart GNOME Shell after installing PaperWM, e.g. logout then login, or restart in place with an `alt-F2` and entering `r` (X11 only).
->
-> After logging back in, you can then enable PaperWM via the `Extensions` application, or by running the following command from the command-line:
->
-> `/usr/bin/gnome-extensions enable paperwm@paperwm.github.com`
->
+#### 4. Restart GNOME Shell
 
-> if you have run into issues, delete any older `paperwm@...` symlinks from `~/.local/share/gnome-shell/extensions` and re-run the `install.sh` script.
+Restart GNOME Shell so that the extension is detected:
 
-#### Uninstall PaperWM (if installed via source)
+- **Wayland:** Log out and log back in.
+- **X11:** Press <kbd>Alt</kbd>+<kbd>F2</kbd>, type `r`, and press <kbd>Enter</kbd>.
 
-To uninstall simply run `make uninstall`.
+#### 5. Enable PaperWM
+
+After logging back in, enable PaperWM either through the **GNOME Extensions** app (or Extension Manager) or by running:
+
+```bash
+gnome-extensions enable paperwm@paperwm.github.com
+```
+
+### Uninstall PaperWM
+
+To uninstall PaperWM (installed via source):
+
+```bash
+make uninstall
+```
 
 ### Try without installing
 
