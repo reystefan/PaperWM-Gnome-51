@@ -1,4 +1,7 @@
-# PaperWM #
+# PaperWM (Temporary Fork for GNOME 51 Support) #
+
+> [!NOTE]
+> **Temporary Fork:** This repository is a temporary fork of [PaperWM](https://github.com/paperwm/PaperWM) created to add compatibility for **GNOME Shell 51** while upstream support is not yet merged or released. Once official support is available in the upstream repository, this fork will be deprecated.
 
 [![project chat](https://img.shields.io/badge/PaperWM_Discussions-join_chat-brightgreen)](https://github.com/paperwm/PaperWM/discussions)
 
@@ -6,11 +9,11 @@ PaperWM is a [GNOME Shell](https://www.gnome.org/) extension which provides scro
 
 While technically an [extension](https://extensions.gnome.org/about/) it's to a large extent built on top of the Gnome desktop rather than merely extending it.
 
-PaperWM aims to continually support [current stable](https://release.gnome.org/calendar/#branches) GNOME Shell versions (currently GNOME 47-49).  Older versions of PaperWM can generally be installed on older GNOME Shell versions (see [Install via Source](#install-via-source) for more information on targeting an older/EOL Gnome version).
+PaperWM aims to continually support [current stable](https://release.gnome.org/calendar/#branches) GNOME Shell versions. Older versions of PaperWM can generally be installed on older GNOME Shell versions (see [Install via Source](#install-via-source) for more information on targeting an older/EOL Gnome version).
 
-New features and fixes aren't generally backported to older Gnome shell versions.  [Pull requests](https://github.com/paperwm/PaperWM/pulls) for fixes to older PaperWM versions (that run on previous Gnome versions) will be accepted if the submitter can help test and update related documentation.
+New features and fixes aren't generally backported to older Gnome shell versions. [Pull requests](https://github.com/paperwm/PaperWM/pulls) for fixes to older PaperWM versions (that run on previous Gnome versions) will be accepted if the submitter can help test and update related documentation.
 
-Have questions or comments?  Please ask on our [Github Discussions](https://github.com/paperwm/PaperWM/discussions) board.
+Have questions or comments? Please ask on the upstream [Github Discussions](https://github.com/paperwm/PaperWM/discussions) board.
 
 ## Installation
 
