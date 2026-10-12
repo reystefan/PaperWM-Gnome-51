@@ -24,7 +24,7 @@
     profiles."user".databases = [
       { settings =
         { "org/gnome/shell" =
-          { enabled-extensions = [ "paperwm@paperwm.github.com" ];
+          { enabled-extensions = [ "paperwmgnome51@reystefan.github.com" ];
             disable-user-extensions = false;
           };
         };

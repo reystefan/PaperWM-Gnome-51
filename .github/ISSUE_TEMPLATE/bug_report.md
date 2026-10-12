@@ -36,7 +36,7 @@ GNOME Shell: 46.0
 Display server: Wayland
 PaperWM version: 46.4.1
 Enabled extensions:
-- paperwm@paperwm.github.com
+- paperwmgnome51@reystefan.github.com
 - switcher@landau.fi
 - dash-to-panel@jderose9.github.com
 - appindicatorsupport@rgcjonas.gmail.com

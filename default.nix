@@ -1,7 +1,7 @@
 { pkgs, stdenv, glib, ... }:
 
 let
-  uuid = "paperwm@paperwm.github.com";
+  uuid = "paperwmgnome51@reystefan.github.com";
 in
 stdenv.mkDerivation {
   pname = "gnome-shell-extension-paperwm";
